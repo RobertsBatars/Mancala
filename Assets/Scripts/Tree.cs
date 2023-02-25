@@ -14,6 +14,7 @@ public class Tree
     public void GenerateTree(int depth)
     {
         float currentDelta, a, b;
+        int bestIndex = 0;
         a = -Mathf.Infinity;
         b = Mathf.Infinity;
 
@@ -27,14 +28,20 @@ public class Tree
             System.Array.Copy(PlayingField.values, values, 14);
 
             root.nodes[i].delta = Minimax(root.nodes[i], depth, a, b, true, values, i + 1);
-            currentDelta = Mathf.Max(currentDelta, root.nodes[i].delta);
+            if (root.nodes[i].delta > currentDelta)
+            {
+                currentDelta = root.nodes[i].delta;
+                bestIndex = i + 1;
+            }
         }
+        root.bestIndex = bestIndex;
         root.delta = currentDelta;
     }
 
     public float Minimax(Node node, int depth, float a, float b, bool isMaximizing, int[] values, int index)
     {
         float currentDelta;
+        int bestIndex = 0;
         PlayingField.values = values;
         if (depth == 0 || PlayingField.CheckEnd())
         {
@@ -59,13 +66,18 @@ public class Tree
                 System.Array.Copy(values, valuesNext, 14);
 
                 node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, doubleMove, valuesNext, i + 8);
-                currentDelta = Mathf.Max(currentDelta, node.nodes[i].delta);
+                if (node.nodes[i].delta > currentDelta)
+                {
+                    currentDelta = node.nodes[i].delta;
+                    bestIndex = i + 1;
+                }
                 if (currentDelta > b)
                 {
                     break;
                 }
                 a = Mathf.Max(a, currentDelta);
             }
+            node.bestIndex = bestIndex;
             return currentDelta;
         }
         else
@@ -78,7 +90,11 @@ public class Tree
                 System.Array.Copy(values, valuesNext, 14);
 
                 node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, !doubleMove, valuesNext, i + 1);
-                currentDelta = Mathf.Min(currentDelta, node.nodes[i].delta);
+                if (node.nodes[i].delta < currentDelta)
+                {
+                    currentDelta = node.nodes[i].delta;
+                    bestIndex = i + 8;
+                }
                 if (currentDelta < a)
                 {
                     break;
@@ -88,6 +104,7 @@ public class Tree
             //PlayingField.DEBUG_PrintValues(values);
             //Debug.Log("dawd:");
             //Debug.Log(currentDelta);
+            node.bestIndex = bestIndex;
             return currentDelta;
         }
     }

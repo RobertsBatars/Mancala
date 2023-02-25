@@ -6,4 +6,5 @@ public class Node
 {
     public Node[] nodes;
     public float delta;
+    public int bestIndex;
 }
