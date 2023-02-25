@@ -12,7 +12,7 @@ public class AI : MonoBehaviour
         tree = new Tree();
         PlayingField.Init();
         tree.InitTree();
-        tree.GenerateTree(2);
+        tree.GenerateTree(3);
         Debug.Log(tree.root.delta);
     }
 
@@ -23,19 +23,22 @@ public class AI : MonoBehaviour
 
         public static void MakeMove(int index)
         {
+            index %= 14;
             int value = values[index];
             values[index] = 0;
             index++;
             while (value > 0)
             {
-                values[index % 14]++;
+                index %= 14;
+                values[index]++;
                 index++;
                 value--;
             }
         }
 
-        public static int Evaluate()
+        public static int EvaluateMove(int index)
         {
+            //PlayingField.MakeMove(index);
             return values[7] - values[0];
         }
 
@@ -126,7 +129,7 @@ public class AI : MonoBehaviour
                 PlayingField.Init();
                 System.Array.Copy(PlayingField.values, values, 14);
 
-                root.nodes[i].delta = Minimax(root.nodes[i], depth-1, a, b, true, values, i + 1);
+                root.nodes[i].delta = Minimax(root.nodes[i], depth, a, b, true, values, i + 1);
                 currentDelta = Mathf.Max(currentDelta, root.nodes[i].delta);
             }
             root.delta = currentDelta;
@@ -136,12 +139,16 @@ public class AI : MonoBehaviour
         {
             float currentDelta;
             PlayingField.values = values;
-            PlayingField.MakeMove(index);
             if (depth == 0 || PlayingField.CheckEnd())
             {
-                PlayingField.DEBUG_PrintValues(PlayingField.values);
-                return PlayingField.Evaluate();
+                //PlayingField.DEBUG_PrintValues(PlayingField.values);
+                //Debug.Log(PlayingField.Evaluate());
+
+
+                return PlayingField.EvaluateMove(index + 7);
             }
+            PlayingField.MakeMove(index);
+            values = PlayingField.values;
             node.nodes = new Node[6];
 
             if (isMaximizing)
@@ -152,6 +159,7 @@ public class AI : MonoBehaviour
                     node.nodes[i] = new Node();
                     int[] valuesNext = new int[14];
                     System.Array.Copy(values, valuesNext, 14);
+
                     node.nodes[i].delta = Minimax(node.nodes[i], depth-1, a, b, false, valuesNext, i+8);
                     currentDelta = Mathf.Max(currentDelta, node.nodes[i].delta);
                     if (currentDelta > b)
@@ -170,7 +178,7 @@ public class AI : MonoBehaviour
                     node.nodes[i] = new Node();
                     int[] valuesNext = new int[14];
                     System.Array.Copy(values, valuesNext, 14);
-
+                    
                     node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, true, valuesNext, i + 1);
                     currentDelta = Mathf.Min(currentDelta, node.nodes[i].delta);
                     if (currentDelta < a)
@@ -179,6 +187,9 @@ public class AI : MonoBehaviour
                     }
                     b = Mathf.Min(b, currentDelta);
                 }
+                //PlayingField.DEBUG_PrintValues(values);
+                //Debug.Log("dawd:");
+                //Debug.Log(currentDelta);
                 return currentDelta;
             }
         }
