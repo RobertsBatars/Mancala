@@ -24,6 +24,8 @@ public class AI : MonoBehaviour
         public static void MakeMove(int index)
         {
             int value = values[index];
+            values[index] = 0;
+            index++;
             while (value > 0)
             {
                 values[index % 14]++;
@@ -34,7 +36,6 @@ public class AI : MonoBehaviour
 
         public static int Evaluate()
         {
-            Debug.Log(values[7] - values[0]);
             return values[7] - values[0];
         }
 
@@ -69,6 +70,30 @@ public class AI : MonoBehaviour
             }
             values[7] = 0;
         }
+
+        public static void DEBUG_PrintValues(int[] values)
+        {
+            Debug.Log(" ");
+            Debug.Log("Red Pit: ");
+            Debug.Log(values[0]);
+            Debug.Log(" ");
+            for (int i = 1; i < 14; i++)
+            {
+                if (i == 7)
+                {
+                    Debug.Log(" ");
+                    Debug.Log("Blue Pit: ");
+                    Debug.Log(values[7]);
+                    Debug.Log(" ");
+                }
+                else
+                {
+                    Debug.Log(values[i]);
+                }
+            }
+
+            Debug.Log(" ");
+        }
     }
 
     class Node
@@ -100,6 +125,7 @@ public class AI : MonoBehaviour
                 int[] values = new int[14];
                 PlayingField.Init();
                 System.Array.Copy(PlayingField.values, values, 14);
+
                 root.nodes[i].delta = Minimax(root.nodes[i], depth-1, a, b, true, values, i + 1);
                 currentDelta = Mathf.Max(currentDelta, root.nodes[i].delta);
             }
@@ -113,9 +139,11 @@ public class AI : MonoBehaviour
             PlayingField.MakeMove(index);
             if (depth == 0 || PlayingField.CheckEnd())
             {
+                PlayingField.DEBUG_PrintValues(PlayingField.values);
                 return PlayingField.Evaluate();
             }
             node.nodes = new Node[6];
+
             if (isMaximizing)
             {
                 currentDelta = -Mathf.Infinity;
@@ -123,10 +151,9 @@ public class AI : MonoBehaviour
                 {
                     node.nodes[i] = new Node();
                     int[] valuesNext = new int[14];
-                    System.Array.Copy(PlayingField.values, valuesNext, 14);
-
-                    node.nodes[i].delta = Minimax(node.nodes[i], depth-1, a, b, false, valuesNext, i+1);
-                    currentDelta = Mathf.Min(currentDelta, node.nodes[i].delta);
+                    System.Array.Copy(values, valuesNext, 14);
+                    node.nodes[i].delta = Minimax(node.nodes[i], depth-1, a, b, false, valuesNext, i+8);
+                    currentDelta = Mathf.Max(currentDelta, node.nodes[i].delta);
                     if (currentDelta > b)
                     {
                         break;
@@ -142,9 +169,9 @@ public class AI : MonoBehaviour
                 {
                     node.nodes[i] = new Node();
                     int[] valuesNext = new int[14];
-                    System.Array.Copy(PlayingField.values, valuesNext, 14);
+                    System.Array.Copy(values, valuesNext, 14);
 
-                    node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, true, valuesNext, i + 8);
+                    node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, true, valuesNext, i + 1);
                     currentDelta = Mathf.Min(currentDelta, node.nodes[i].delta);
                     if (currentDelta < a)
                     {
