@@ -7,8 +7,12 @@ public static class PlayingField
     public static int[] values;
     private static int[] savedValues;
 
-    public static void MakeMove(int index)
+    public static bool doubleMove = false;
+
+    public static void MakeMove(int n)
     {
+        doubleMove = false;
+        int index = n;
         index %= 14;
         int value = values[index];
         values[index] = 0;
@@ -20,9 +24,28 @@ public static class PlayingField
             index++;
             value--;
         }
+        index--;
+        if ((index == 0 && n > 7) || (index == 7 && n < 7))
+        {
+            doubleMove = true;
+        }
+
+        if (values[index] == 0)
+        {
+            if (n < 7 && index < 7 && index != 0)
+            {
+                values[7] += values[13 - index];
+                values[13 - index] = 0;
+            }
+            if (n > 7 && index > 7)
+            {
+                values[0] += values[13 - index];
+                values[13 - index] = 0;
+            }
+        }
     }
 
-    public static int EvaluateMove(int index)
+    public static int EvaluateMove()
     {
         //PlayingField.MakeMove(index);
         return values[7] - values[0];

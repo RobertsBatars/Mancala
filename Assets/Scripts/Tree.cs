@@ -42,9 +42,10 @@ public class Tree
             //Debug.Log(PlayingField.Evaluate());
 
 
-            return PlayingField.EvaluateMove(index + 7);
+            return PlayingField.EvaluateMove();
         }
         PlayingField.MakeMove(index);
+        bool doubleMove = PlayingField.doubleMove;
         values = PlayingField.values;
         node.nodes = new Node[6];
 
@@ -57,7 +58,7 @@ public class Tree
                 int[] valuesNext = new int[14];
                 System.Array.Copy(values, valuesNext, 14);
 
-                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, false, valuesNext, i + 8);
+                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, doubleMove, valuesNext, i + 8);
                 currentDelta = Mathf.Max(currentDelta, node.nodes[i].delta);
                 if (currentDelta > b)
                 {
@@ -76,7 +77,7 @@ public class Tree
                 int[] valuesNext = new int[14];
                 System.Array.Copy(values, valuesNext, 14);
 
-                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, true, valuesNext, i + 1);
+                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, !doubleMove, valuesNext, i + 1);
                 currentDelta = Mathf.Min(currentDelta, node.nodes[i].delta);
                 if (currentDelta < a)
                 {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class AI : MonoBehaviour
 {
     [SerializeField] private TileManager tileManager;
+    public int depth = 1;
     private Tree tree;
 
     private void Start()
@@ -12,7 +13,7 @@ public class AI : MonoBehaviour
         tree = new Tree();
         PlayingField.Init();
         tree.InitTree();
-        tree.GenerateTree(3);
+        tree.GenerateTree(depth);
         Debug.Log(tree.root.delta);
     }
 }
