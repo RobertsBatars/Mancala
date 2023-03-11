@@ -9,22 +9,31 @@ public class AI : MonoBehaviour
     private Tree tree;
     private Node currentNode;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            tree = new Tree();
+            PlayingField.Init();
+            tree.InitTree();
+            tree.GenerateTree(depth);
+            PlayingField.Init();
+            currentNode = tree.root;
+            Debug.Log(tree.root.bestIndex);
+        }
+    }
+
     private void Start()
     {
-        tree = new Tree();
-        PlayingField.Init();
-        tree.InitTree();
-        tree.GenerateTree(depth);
-        PlayingField.Init();
-        currentNode = tree.root;
-        Debug.Log(tree.root.bestIndex);
+        
     }
 
     public void MakeMove(int index)
     {
-        if (index > 7)
+        index--;
+        if (index >= 7)
         {
-            index -= 8;
+            index -= 7;
         }
         currentNode = currentNode.nodes[index];
     }

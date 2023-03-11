@@ -13,47 +13,25 @@ public class Tree
 
     public void GenerateTree(int depth)
     {
-        float currentDelta, a, b;
-        int bestIndex = 0;
+        float a, b;
         a = -Mathf.Infinity;
         b = Mathf.Infinity;
-
-        currentDelta = -Mathf.Infinity;
-        root.nodes = new Node[6];
-        for (int i = 0; i < 6; i++)
-        {
-            root.nodes[i] = new Node();
-            int[] values = new int[14];
-            PlayingField.Init();
-            System.Array.Copy(PlayingField.values, values, 14);
-
-            root.nodes[i].delta = Minimax(root.nodes[i], depth, a, b, true, values, i + 1);
-            if (root.nodes[i].delta > currentDelta)
-            {
-                currentDelta = root.nodes[i].delta;
-                bestIndex = i + 1;
-            }
-        }
-        root.bestIndex = bestIndex;
-        root.delta = currentDelta;
+        PlayingField.Init();
+        int[] valuesNext = new int[14];
+        System.Array.Copy(PlayingField.values, valuesNext, 14);
+        root.delta = Minimax(root, depth, a, b, true, valuesNext);
     }
 
-    public float Minimax(Node node, int depth, float a, float b, bool isMaximizing, int[] values, int index)
+    public float Minimax(Node node, int depth, float a, float b, bool isMaximizing, int[] values)
     {
         float currentDelta;
-        int bestIndex = 0;
+        bool doubleMove;
+        int bestIndex = -100;
         PlayingField.values = values;
         if (depth == 0 || PlayingField.CheckEnd())
         {
-            //PlayingField.DEBUG_PrintValues(PlayingField.values);
-            //Debug.Log(PlayingField.Evaluate());
-
-
-            return PlayingField.EvaluateMove();
+            return PlayingField.Evaluate();
         }
-        PlayingField.MakeMove(index);
-        bool doubleMove = PlayingField.doubleMove;
-        values = PlayingField.values;
         node.nodes = new Node[6];
 
         if (isMaximizing)
@@ -61,11 +39,18 @@ public class Tree
             currentDelta = -Mathf.Infinity;
             for (int i = 0; i < 6; i++)
             {
+                if (values[i+1] == 0) continue;
                 node.nodes[i] = new Node();
-                int[] valuesNext = new int[14];
-                System.Array.Copy(values, valuesNext, 14);
 
-                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, doubleMove, valuesNext, i + 8);
+                PlayingField.values = (int[])values.Clone();
+                PlayingField.MakeMove(i+1);
+                doubleMove = PlayingField.doubleMove;
+
+                int[] valuesNext = new int[14];
+                System.Array.Copy(PlayingField.values, valuesNext, 14);
+
+                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, doubleMove, valuesNext);
+
                 if (node.nodes[i].delta > currentDelta)
                 {
                     currentDelta = node.nodes[i].delta;
@@ -85,11 +70,18 @@ public class Tree
             currentDelta = Mathf.Infinity;
             for (int i = 0; i < 6; i++)
             {
+                if (values[i+8] == 0) continue;
                 node.nodes[i] = new Node();
-                int[] valuesNext = new int[14];
-                System.Array.Copy(values, valuesNext, 14);
 
-                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, !doubleMove, valuesNext, i + 1);
+                PlayingField.values = (int[])values.Clone();
+                PlayingField.MakeMove(i + 8);
+                doubleMove = PlayingField.doubleMove;
+
+                int[] valuesNext = new int[14];
+                System.Array.Copy(PlayingField.values, valuesNext, 14);
+
+                node.nodes[i].delta = Minimax(node.nodes[i], depth - 1, a, b, !doubleMove, valuesNext);
+
                 if (node.nodes[i].delta < currentDelta)
                 {
                     currentDelta = node.nodes[i].delta;
@@ -101,9 +93,6 @@ public class Tree
                 }
                 b = Mathf.Min(b, currentDelta);
             }
-            //PlayingField.DEBUG_PrintValues(values);
-            //Debug.Log("dawd:");
-            //Debug.Log(currentDelta);
             node.bestIndex = bestIndex;
             return currentDelta;
         }

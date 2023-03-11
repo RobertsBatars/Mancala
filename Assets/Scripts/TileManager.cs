@@ -48,13 +48,10 @@ public class TileManager : MonoBehaviour
         foreach (Transform tile in tiles)
         {
             angle = 360f / tile.GetChild(0).childCount / 2;
-
             foreach (Transform gem in tile.GetChild(0))
             {
                 gem.position =  tile.position + new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle) * gemRadius, Mathf.Sin(Mathf.Deg2Rad * angle) * gemRadius, transform.position.z);
-
                 angle += 360f / tile.GetChild(0).childCount;
-                
             }
         }
     }

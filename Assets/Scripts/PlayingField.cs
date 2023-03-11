@@ -45,9 +45,8 @@ public static class PlayingField
         }
     }
 
-    public static int EvaluateMove()
+    public static int Evaluate()
     {
-        //PlayingField.MakeMove(index);
         return values[7] - values[0];
     }
 
