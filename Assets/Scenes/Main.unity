@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileManager: {fileID: 1004981112}
-  depth: 4
+  depth: 8
 --- !u!4 &1682184339
 Transform:
   m_ObjectHideFlags: 0
