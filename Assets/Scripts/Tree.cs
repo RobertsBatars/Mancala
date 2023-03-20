@@ -11,15 +11,14 @@ public class Tree
         root = new Node();
     }
 
-    public void GenerateTree(int depth)
+    public void GenerateTree(int depth, int[] values, Node rootNode)
     {
         float a, b;
         a = -Mathf.Infinity;
         b = Mathf.Infinity;
-        PlayingField.Init();
         int[] valuesNext = new int[14];
-        System.Array.Copy(PlayingField.values, valuesNext, 14);
-        root.delta = Minimax(root, depth, a, b, true, valuesNext);
+        System.Array.Copy(values, valuesNext, 14);
+        rootNode.delta = Minimax(rootNode, depth, a, b, true, valuesNext);
     }
 
     public float Minimax(Node node, int depth, float a, float b, bool isMaximizing, int[] values)

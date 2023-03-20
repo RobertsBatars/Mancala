@@ -8,10 +8,14 @@ public static class PlayingField
     private static int[] savedValues;
 
     public static bool doubleMove = false;
+    public static int capturedIndex = -1;
+    [HideInInspector] public static bool readyToMakeMove = true;
+    [HideInInspector] public static bool playerMove = true;
 
     public static void MakeMove(int n)
     {
         doubleMove = false;
+        capturedIndex = -1;
         int index = n;
         index %= 14;
         int value = values[index];
@@ -30,17 +34,19 @@ public static class PlayingField
             doubleMove = true;
         }
 
-        if (values[index] == 0)
+        if (values[index] == 1)
         {
             if (n < 7 && index < 7 && index != 0)
             {
                 values[7] += values[13 - index];
                 values[13 - index] = 0;
+                capturedIndex = 13 - index;
             }
             if (n > 7 && index > 7)
             {
                 values[0] += values[13 - index];
                 values[13 - index] = 0;
+                capturedIndex = 13 - index;
             }
         }
     }

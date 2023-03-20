@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GemContainer : MonoBehaviour
 {
-    [HideInInspector] public int gemCount = 4;
+    private int gemCount = 4;
     private AI ai;
     public int index = 0;
 
@@ -15,16 +15,31 @@ public class GemContainer : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (gemCount == 0 || !PlayingField.readyToMakeMove)
+        {
+            return;
+        }
         gemCount = 0;
 
-        transform.GetChild(0).GetComponent<GemMover>().MoveTo(index+1);
+        transform.GetChild(0).GetComponent<GemMover>().MoveTo(index+1, false);
 
+        PlayingField.readyToMakeMove = false;
         ai.MakeMove(index);
-        Debug.Log(ai.BestMove());
     }
 
-    public void AddGem()
+    public void AddGem(int n)
     {
-        gemCount++;
+        gemCount += n;
+    }
+
+    public void Move()
+    {
+        transform.GetChild(0).GetComponent<GemMover>().MoveTo(index + 1, false);
+        ai.MakeMove(index);
+    }
+
+    public void MoveAll(int index)
+    {
+        transform.GetChild(0).GetComponent<GemMover>().MoveTo(index, true);
     }
 }
