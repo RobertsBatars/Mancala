@@ -258,7 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 7
 --- !u!1 &233163440
 GameObject:
@@ -384,7 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 9
 --- !u!1 &238351915
 GameObject:
@@ -484,7 +482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 0
 --- !u!1 &308301513
 GameObject:
@@ -610,7 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 4
 --- !u!1 &519420028
 GameObject:
@@ -699,7 +695,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.63
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -854,7 +850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 8
 --- !u!1 &619394800
 GameObject:
@@ -1090,7 +1085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 5
 --- !u!1 &695241274
 GameObject:
@@ -1216,7 +1210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 11
 --- !u!1 &701165823
 GameObject:
@@ -1342,7 +1335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 10
 --- !u!1 &776346807
 GameObject:
@@ -1468,7 +1460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 6
 --- !u!1 &1004981111
 GameObject:
@@ -1518,7 +1509,7 @@ MonoBehaviour:
   gemRadius: 0.5
   gemPrefab: {fileID: 1879829633849931803, guid: 92e7ff8c1d28acf498cb572141a67458, type: 3}
   gemGroupPrefab: {fileID: 5234502007255294828, guid: cc02b244bb1f42d469ab29dbbd74d0f2, type: 3}
-  distanceUntilReached: 0.01
+  distanceUntilReached: 0.1
 --- !u!4 &1004981113
 Transform:
   m_ObjectHideFlags: 0
@@ -1691,7 +1682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 3
 --- !u!1001 &1519344003
 PrefabInstance:
@@ -1879,7 +1869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 2
 --- !u!1 &1584057553
 GameObject:
@@ -2005,7 +1994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 12
 --- !u!1 &1682184337
 GameObject:
@@ -2177,7 +2165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 1
 --- !u!1 &2013653324
 GameObject:
@@ -2273,7 +2260,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 5fc33156eaf5fe04c913f36a4e766708, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2424,7 +2411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee46d1cd6973ebb489384725beb6e18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gemCount: 0
   index: 13
 --- !u!1001 &2120456675
 PrefabInstance:

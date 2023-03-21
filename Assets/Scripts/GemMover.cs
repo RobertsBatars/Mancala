@@ -13,7 +13,7 @@ public class GemMover : MonoBehaviour
     private AI ai;
     private bool moveAll = false;
 
-    private float distanceUntilReached = 0.01f;
+    private float distanceUntilReached;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +29,18 @@ public class GemMover : MonoBehaviour
     {
         if (!hasReachedEnd)
         {
-            transform.Translate((target.position - transform.position).normalized * movementSpeed * Time.deltaTime);
-
             if ((target.position - transform.position).magnitude <= distanceUntilReached)
             {
                 HasReachedTile();
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!hasReachedEnd)
+        {
+            transform.Translate((target.position - transform.position).normalized * movementSpeed * Time.fixedDeltaTime);
         }
     }
 

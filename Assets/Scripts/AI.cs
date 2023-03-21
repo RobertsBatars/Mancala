@@ -50,7 +50,7 @@ public class AI : MonoBehaviour
             index -= 7;
         }
         currentNode = currentNode.nodes[index];
-        PlayingField.DEBUG_PrintValues(PlayingField.values);
+        //PlayingField.DEBUG_PrintValues(PlayingField.values);
     }
 
     public int BestMove()
