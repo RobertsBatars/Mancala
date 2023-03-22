@@ -38,15 +38,15 @@ public static class PlayingField
         {
             if (n < 7 && index < 7 && index != 0)
             {
-                values[7] += values[13 - index];
-                values[13 - index] = 0;
-                capturedIndex = 13 - index;
+                values[7] += values[14 - index];
+                values[14 - index] = 0;
+                capturedIndex = 14 - index;
             }
             if (n > 7 && index > 7)
             {
-                values[0] += values[13 - index];
-                values[13 - index] = 0;
-                capturedIndex = 13 - index;
+                values[0] += values[14 - index];
+                values[14 - index] = 0;
+                capturedIndex = 14 - index;
             }
         }
     }
